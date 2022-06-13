@@ -3,7 +3,7 @@ const Route = require('./routes/routes')
 const app = express()
 
 app.get('/', (req, res) => {
-  res.send('Server Runing')
+  res.send('Server Runing Port: 3000')
 })
 
 app.use(express.json())
