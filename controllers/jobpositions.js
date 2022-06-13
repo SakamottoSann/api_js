@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const knex = require("../dbConfig");
 
 module.exports = {
