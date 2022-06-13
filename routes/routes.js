@@ -8,6 +8,8 @@ const verifyLogin = require("../middlewares/login");
 const login = require("../controllers/login");
 const userController = require("../controllers/user");
 const jobController = require("../controllers/jobpositions");
+const feedController = require("../controllers/feed");
+const commentController = require("../controllers/comment");
 
 Route
   // Rota de login
@@ -22,8 +24,17 @@ Route
   .delete("/userdel", userController.destroy) // remove o usuario
 
 Route
-  .get("/job", jobController.show)
-  .post("/job", jobController.createJob)
+  // Rotas de Controle de Cargos
+  .get("/job", jobController.show) // lista Todos os Cargos Cadastrados
+  .post("/job", jobController.createJob) // Cadastro De Cargos
+
+Route
+// Rota de Controle das Publicações
+.get("/feed", feedController.show) // lista de Todas as Questoes
+.post("/feed", feedController.createPublic) // Cadastro de questoes
+Route
+// Rota de Controle dos Comentarios
+.post("/feed", commentController.createComment) // Cadastro de commentarios
 
 // rota publica bloqueada se acessada diretamente ----------------------------------
 Route.get('/*', () => {
