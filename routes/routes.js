@@ -4,16 +4,26 @@ const Route = express.Router();
 
 Route.use(cors())
 
-const userController = require("../controllers/user");
-const tokenVerify = require("../middlewares/tokenVerify");
+const verifyLogin = require("../middlewares/login");
 const login = require("../controllers/login");
+const userController = require("../controllers/user");
+const jobController = require("../controllers/jobpositions");
 
 Route
-  .get("/user", tokenVerify, userController.show) // Lista de usuarios
-  .post("/user", userController.createUser) // Cadastra um usuario
-
-Route
+  // Rota de login
   .post("/login", login.index) // Login
+
+Route
+  // Rotas de controle de Usuarios.
+  .get("/user", userController.show) // Lista de usuarios
+  .post("/user", userController.createUser) // Cadastra um usuario
+  .put("/userup", userController.update) // altera senha do usuario
+  .put("/userupjob", userController.upJobPosition) // Altera o Cargo de trabalho 
+  .delete("/userdel", userController.destroy) // remove o usuario
+
+Route
+  .get("/job", jobController.show)
+  .post("/job", jobController.createJob)
 
 // rota publica bloqueada se acessada diretamente ----------------------------------
 Route.get('/*', () => {
