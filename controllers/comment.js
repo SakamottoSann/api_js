@@ -14,7 +14,7 @@ module.exports = {
                 publication_id: idPublication,
                 comment,
             });
-            res.status(200).json({ erro: false, msg: "Comentario Salvo" });
+            res.status(200).json({ erro: false, msg: "Comentario Salvo!" });
         } catch (error) {
             res.status(400).json({ erro: true, msg: error.message });
         }

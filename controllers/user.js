@@ -5,7 +5,7 @@ module.exports = {
   async show(req, res) {
     const data = await knex("user").select(
       "id",
-      "jobpositions_id",
+      "job_position_id",
       "name",
       "image",
       "email",
@@ -19,8 +19,8 @@ module.exports = {
   },
 
   async createUser(req, res) {
-    const { name, image, email, fone, ctps, password, jobpositions_id } = req.body;
-    if (!name || !email || !fone || !ctps || !password || !jobpositions_id) {
+    const { name, image, email, fone, ctps, password, jobposition_id } = req.body;
+    if (!name || !email || !fone || !ctps || !password || !jobposition_id) {
       res.status(400).json({ error: "Enviar dados do colaborador!" });
       return;
     }
@@ -44,7 +44,7 @@ module.exports = {
         fone,
         ctps,
         password: hash,
-        jobpositions_id
+        job_position_id: jobposition_id
       });
       res.status(200).json({ data: newUser[0], msg: "Colaborador Cadastrado Com Sucesso!" });
     } catch (error) {
@@ -75,15 +75,10 @@ module.exports = {
   },
 
   async upJobPosition(req, res) {
-    const idU = req.params.idU;
+    const { id, jobposition_id } = req.body;
     try {
-      const usuario = await knex("usuarios").where({ idU });
-      const adm =
-        usuario[0].adm == false
-          ? { valor: true, msg: "Usuario Agora é um ADM!" }
-          : { valor: false, msg: "Usuario não é mais um ADM!" };
-      await knex("usuarios").update("adm", adm.valor).where({ idU });
-      res.status(200).json({ erro: "false", msg: adm.msg });
+      const usuario = await knex("user").update("jobposition_id", jobposition_id).where({ id });
+      res.status(200).json({ erro: false, msg: "Cargo Atualizado Com Sucesso!!!" });
     } catch (error) {
       res.status(200).json({ erro: "true", msg: error.message });
     }
@@ -96,7 +91,6 @@ module.exports = {
       return;
     }
     try {
-
       const usuario = await knex("user").where({ id });
       if (bcrypt.compareSync(password, usuario[0].password)) {
         await knex("user").del().where({ id });

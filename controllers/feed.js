@@ -6,23 +6,22 @@ module.exports = {
             const data = [];
             const publics = await knex("publication")
                 .select(
-                    "p.id as idP",
+                    "p.id as idPublication",
                     "p.publication",
                     "p.created_at",
-                    "u.name as user_name",
+                    "u.name",
                     "u.image"
                 )
                 .from("publication as p")
-                .orderBy('id', "desc")
-                .leftJoin("user as u", "p.id", "u.id as idU");
+                .orderBy('idPublication', "desc")
+                .leftJoin("user as u", "p.user_id", "u.id");
 
-            console.log(publics)
 
             for (var i = 0; i < publics.length; i++) {
                 const comment = await knex("comment")
-                    .where({ idpublication: publics[i].idP })
+                    .where({ publication_id: publics[i].idPublication })
                     .select(
-                        "c.id as idR",
+                        "c.id as idComment",
                         "c.publication_id",
                         "c.comment",
                         "c.created_at",
@@ -34,18 +33,18 @@ module.exports = {
 
                 if (!comment.length) {
                     data.push({
-                        publication_id: publics[i].idP,
+                        publication_id: publics[i].idPublication,
                         publication: publics[i].publication,
                         created_at: publics[i].created_at,
-                        name: publics[i]. user_name,
+                        name: publics[i]. name,
                         image: publics[i].image
                     });
                 } else {
                     data.push({
-                        publication_id: publics[i].idP,
+                        publication_id: publics[i].idPublication,
                         publication: publics[i].publication,
                         created_at: publics[i].created_at,
-                        name: publics[i]. user_name,
+                        name: publics[i]. name,
                         image: publics[i].image,
                         comment: comment,
                     });
@@ -65,7 +64,7 @@ module.exports = {
         }
         try {
             const newPubli = await knex("publication").insert({
-                id,
+                user_id: id,
                 publication,
             });
             res.status(200).json({ data: "Publicado!!!" });
