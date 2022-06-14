@@ -7,9 +7,13 @@ Route.use(cors())
 const verifyLogin = require("../middlewares/login");
 const login = require("../controllers/login");
 const userController = require("../controllers/user");
-const jobController = require("../controllers/jobpositions");
+const jobController = require("../controllers/jobPositions");
 const feedController = require("../controllers/feed");
 const commentController = require("../controllers/comment");
+const suggestionController = require("../controllers/suggestion");
+const warningController = require("../controllers/warning");
+const availableController = require("../controllers/availableJob");
+const pointController = require("../controllers/workPoint");
 
 Route
   // Rota de login
@@ -29,12 +33,36 @@ Route
   .post("/job", jobController.createJob) // Cadastro De Cargos
 
 Route
-// Rota de Controle das Publicações
-.get("/feed", feedController.show) // lista de Todas as Questoes
-.post("/feed", feedController.createPublic) // Cadastro de questoes
+  // Rota de Controle das Publicações
+  .get("/feed", feedController.show) // lista de Todas as Questões
+  .post("/feed", feedController.createPublic) // Cadastro de Questões
+
 Route
-// Rota de Controle dos Comentarios
-.post("/feed", commentController.createComment) // Cadastro de commentarios
+  // Rota de Controle dos Comentarios
+  .post("/comment", commentController.createComment) // Cadastro de commentarios
+
+Route
+  // Rota de Controle de Sugestoes 
+  .get("/suggestion", suggestionController.show) // lista de Sugestões
+  .post("/suggestion", suggestionController.createSuggestion) // Cadastro de Sugestões
+  .delete("/delsuggestion", suggestionController.destroy) // Delete de Sugestões
+
+Route
+  // Rota de Controle de Warnings 
+  .get("/warning", warningController.show) // lista de Warning
+  .post("/warning", warningController.createwarning) // Cadastro de Warnings
+  .delete("/delwarning", warningController.destroy) // Delete de Warnings
+
+Route
+  // Rota de Controle de vagas 
+  .get("/vacancie", availableController.show) // lista de Warning
+  .post("/vacancie", availableController.createVacancie) // Cadastro de Warnings
+  .delete("/delvacancie", availableController.destroy) // Delete de Warnings
+
+Route
+  // Rota de Ponto
+  .get("/point", pointController.show) // lista de Ponto de todos usuarios
+  .post("/point", pointController.createPoint) // Cadastro de Ponto
 
 // rota publica bloqueada se acessada diretamente ----------------------------------
 Route.get('/*', () => {
