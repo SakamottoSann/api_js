@@ -3,7 +3,7 @@ const knex = require("../dbConfig");
 module.exports = {
 
     async show(req, res) {
-        const data = await knex("job_positions").select(
+        const data = await knex("job_position").select(
             "id",
             "position",
             "created_at",
@@ -19,7 +19,7 @@ module.exports = {
             return;
         }
         try {
-            const data = await knex("job_positions").where({ position });
+            const data = await knex("job_position").where({ position });
             if (data.length) {
                 res.status(400).json({ error: "Cargo Já Cadastrado!" });
                 return;
@@ -29,7 +29,7 @@ module.exports = {
         }
 
         try {
-            const newJob = await knex("job_positions").insert({
+            const newJob = await knex("job_position").insert({
                 position
             });
             res.status(200).json({ data: newJob[0], msg: "Cargo Cadastrado Com Sucesso!" });
