@@ -1,5 +1,7 @@
 # API JS
 
+## Descrição
+Api NodeJs desenvolvida para servir a aplicações mobile ou web.
 ## Instalando depedencias
 ```bash
 npm install
