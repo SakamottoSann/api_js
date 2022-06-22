@@ -1,21 +1,21 @@
 {
   "name": "work_flows",
   "version": "1.0.0",
-  "description": "api_js",
+  "description": "work_flows",
   "main": "index.js",
   "scripts": {
     "test": "nodemon Server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:SakamottoSann/api_js.git"
+    "url": "git+ssh://git@gitlab.com:senac-projetos-de-desenvolvimento/2022-william-hellwig-da-fonseca/work-flows-api.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SakamottoSann/api_js.git"
+    "url": "https://git@gitlab.com:senac-projetos-de-desenvolvimento/2022-william-hellwig-da-fonseca/work-flows-api.git"
   },
-  "homepage": "https://github.com/SakamottoSann/api_js.git",
+  "homepage": "https://gitlab.com/senac-projetos-de-desenvolvimento/2022-william-hellwig-da-fonseca/workflows-web",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
