@@ -5,7 +5,7 @@ module.exports = {
   async show(req, res) {
     const data = await knex("user").select(
       "id",
-      "job_position_id",
+      "jobposition_id",
       "name",
       "image",
       "email",
@@ -44,7 +44,7 @@ module.exports = {
         fone,
         ctps,
         password: hash,
-        job_position_id: jobposition_id
+        jobposition_id: jobposition_id
       });
       res.status(200).json({ data: newUser[0], msg: "Colaborador Cadastrado Com Sucesso!" });
     } catch (error) {
