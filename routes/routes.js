@@ -21,48 +21,48 @@ Route
 
 Route
   // Rotas de controle de Usuarios.
-  .get("/user", userController.show) // Lista de usuarios
-  .post("/user", userController.createUser) // Cadastra um usuario
-  .put("/userup", userController.update) // altera senha do usuario
-  .put("/userupjob", userController.upJobPosition) // Altera o Cargo de trabalho 
-  .delete("/userdel", userController.destroy) // remove o usuario
+  .get("/user", verifyLogin, userController.show) // Lista de usuarios
+  .post("/user", verifyLogin, userController.createUser) // Cadastra um usuario
+  .put("/userup", verifyLogin, userController.update) // altera senha do usuario
+  .put("/userupjob", verifyLogin, userController.upJobPosition) // Altera o Cargo de trabalho 
+  .delete("/userdel", verifyLogin, userController.destroy) // remove o usuario
 
 Route
   // Rotas de Controle de Cargos
-  .get("/job", jobController.show) // lista Todos os Cargos Cadastrados
-  .post("/job", jobController.createJob) // Cadastro De Cargos
+  .get("/job", verifyLogin, jobController.show) // lista Todos os Cargos Cadastrados
+  .post("/job", verifyLogin, jobController.createJob) // Cadastro De Cargos
 
 Route
   // Rota de Controle das Publicações
-  .get("/feed", feedController.show) // lista de Todas as Questões
-  .post("/feed", feedController.createPublic) // Cadastro de Questões
+  .get("/feed", verifyLogin, feedController.show) // lista de Todas as Questões
+  .post("/feed", verifyLogin, feedController.createPublic) // Cadastro de Questões
 
 Route
   // Rota de Controle dos Comentarios
-  .post("/comment", commentController.createComment) // Cadastro de commentarios
+  .post("/comment", verifyLogin, commentController.createComment) // Cadastro de commentarios
 
 Route
   // Rota de Controle de Sugestoes 
-  .get("/suggestion", suggestionController.show) // lista de Sugestões
-  .post("/suggestion", suggestionController.createSuggestion) // Cadastro de Sugestões
-  .delete("/delsuggestion", suggestionController.destroy) // Delete de Sugestões
+  .get("/suggestion", verifyLogin, suggestionController.show) // lista de Sugestões
+  .post("/suggestion", verifyLogin, suggestionController.createSuggestion) // Cadastro de Sugestões
+  .delete("/delsuggestion", verifyLogin, suggestionController.destroy) // Delete de Sugestões
 
 Route
   // Rota de Controle de Warnings 
-  .get("/warning", warningController.show) // lista de Warning
-  .post("/warning", warningController.createwarning) // Cadastro de Warnings
-  .delete("/delwarning", warningController.destroy) // Delete de Warnings
+  .get("/warning", verifyLogin, warningController.show) // lista de Warning
+  .post("/warning", verifyLogin, warningController.createwarning) // Cadastro de Warnings
+  .delete("/delwarning", verifyLogin, warningController.destroy) // Delete de Warnings
 
 Route
   // Rota de Controle de vagas 
-  .get("/vacancie", availableController.show) // lista de Warning
-  .post("/vacancie", availableController.createVacancie) // Cadastro de Warnings
-  .delete("/delvacancie", availableController.destroy) // Delete de Warnings
+  .get("/vacancie", verifyLogin, availableController.show) // lista de Warning
+  .post("/vacancie", verifyLogin, availableController.createVacancie) // Cadastro de Warnings
+  .delete("/delvacancie", verifyLogin, availableController.destroy) // Delete de Warnings
 
 Route
   // Rota de Ponto
-  .get("/point", pointController.show) // lista de Ponto de todos usuarios
-  .post("/point", pointController.createPoint) // Cadastro de Ponto
+  .get("/point", verifyLogin, pointController.show) // lista de Ponto de todos usuarios
+  .post("/point", verifyLogin, pointController.createPoint) // Cadastro de Ponto
 
 // rota publica bloqueada se acessada diretamente ----------------------------------
 Route.get('/*', () => {
@@ -70,10 +70,8 @@ Route.get('/*', () => {
     <!DOCTYPE html>
     <html>
     <head>
-      <title>ApiMaxtec</title>
+      <title>Work Flows api</title>
       <link rel="icon" href="images/favicon.png" sizes="32x32">
-      <link rel='stylesheet' href='404/bootstrap.min.css'>
-      <link rel='stylesheet' href='404/style.css'>
       <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Arvo'>
     </head>
     <body>
@@ -82,10 +80,6 @@ Route.get('/*', () => {
           <div class="row"> 
           <div class="col-sm-12 ">
           <div class="col-sm-10 col-sm-offset-1  text-center">
-          <div class="four_zero_four_bg">
-            <h1 class="text-center ">4 0 4</h1>
-          </div>
-          
           <div class="contant_box_404">
           <h3 class="h2">
             Parace que você está perdido
